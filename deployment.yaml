@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: cat
+  name: cat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: cat-exposed
+  template:
+    metadata:
+      labels:
+        run: cat-exposed
+    spec:
+      containers:
+      - image: localhost:5000/cat:1.0.0
+        name: cat
+        ports:
+        - containerPort: 80
+          protocol: TCP
